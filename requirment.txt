@@ -1,0 +1,23 @@
+pandas  # Tabular data handling and data analysis
+pillow  # Image loading and processing
+pymupdf  # Fast PDF text, image, and page extraction
+pypdf  # PDF parsing and text extraction
+python-docx  # Reading and writing Word document files
+pytesseract  # OCR for extracting text from images
+tabulate  # Formatting tabular data for readable display
+structlog  # Structured application logging
+pdfplumber  # Extracting text, tables, and layout from PDFs
+
+langchain-openai  # OpenAI chat models and embeddings integration
+langchain-qdrant  # LangChain integration for the Qdrant vector database
+langchain-text-splitters  # Splitting documents into retrievable chunks
+qdrant-client  # Client for storing and searching vectors in Qdrant
+python-dotenv  # Loading API keys and settings from environment files
+streamlit  # Building the interactive web application
+
+# Notebook conversion utility
+nbformat  # Reading and writing Jupyter notebook JSON structures
+nbconvert  # Exporting and converting Jupyter notebooks
+
+# Legacy setup.py compatibility
+setuptools>=68
