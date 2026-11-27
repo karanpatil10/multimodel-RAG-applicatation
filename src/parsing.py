@@ -55,6 +55,16 @@ logger = CustomLogger().get_logger(__name__)
 #logger setup
 
 class ComplexPDFParser:
+     """
+        Parse a complex PDF containing:
+        - selectable text
+        - scanned pages
+        - tables
+        - embedded images
+        Final output can be converted into 
+        LangChain Documents for RAG.
+        """
+     
     def __init__(
             self,
             pdf_path: str,
@@ -87,3 +97,57 @@ class ComplexPDFParser:
                 "Failed to initalized the pdf parser"
                 exc,
             )from exc
+
+    #=====================================================
+    #setup code
+
+    def _validate_pdf(self) ->none
+        if not self.pdf_path.exist():
+              raise FileNotFoundError(f"pdf file not found":{self.pdf_path})
+
+
+    def _create_output_directories(self) ->None:
+        self.output_dir.mkdir(parents=True,exist_ok= True)
+        self.image_dir.mkdir(parents=True,exist_ok=True)
+        self.page_image_dir.mkdir(parents=True, exist_ok=True)
+
+    def _configure_tesseract(self, tesseract_path: optional[str])-> None:
+        if not self.tessaract_path.exist():
+              raise FileErrorNotFound(
+                    f"Tessaract file not found at:{path}"
+              )
+        pytessaract.pytessaract.tesseract_cmd = str(path)
+
+
+    #=====================================================
+    # OCR optical character recognition
+
+    def run_ocr_on_image(self, image_path:str | path) ->str:
+        
+        """Use try / except when external or 
+        file operations can fail unpredictably 
+        at runtime, and if / else when you are 
+        checking a known, predictable condition 
+        ahead of time.
+        """
+        try:
+            with image.open(image_path) as image:
+                text = pytessaract.image_to_string(image)
+
+            return text.strip()
+
+        except Exception as exc:
+            logger.warning(
+                    "image_ocr_failed",
+                    image_path=str(image_path),
+                    error=str(exc),
+            )
+            return f"[OCR skipped or failed: {exc}]"
+
+    # =================================================
+    # PyMuPDF: Text + Images + Full-page OCR
+
+
+
+        
+        
