@@ -34,7 +34,7 @@ import pdfplumber
 import pytesseract
 #Python wrapper for the Tesseract 
 # OCR(optical character recognitation) 
-# for images charts screenshots embedded images
+# for images, charts, screenshots, embedded images.
 
 from PIL import Images
 #Image loading, cropping, resizing, 
@@ -123,13 +123,20 @@ class ComplexPDFParser:
     # OCR optical character recognition
 
     def run_ocr_on_image(self, image_path:str | path) ->str:
-        
-        """Use try / except when external or 
-        file operations can fail unpredictably 
-        at runtime, and if / else when you are 
-        checking a known, predictable condition 
-        ahead of time.
         """
+        Run OCR on an image using pytesseract.
+
+        Returns extracted text.
+        If OCR fails, returns a readable failure marker instead
+        of stopping the entire PDF parsing pipeline.
+        """
+
+        #Use try / except when external or 
+        #file operations can fail unpredictably 
+        #at runtime, and if / else when you are 
+        #checking a known, predictable condition 
+        #ahead of time.
+        
         try:
             with image.open(image_path) as image:
                 text = pytessaract.image_to_string(image)
@@ -147,7 +154,26 @@ class ComplexPDFParser:
     # =================================================
     # PyMuPDF: Text + Images + Full-page OCR
 
+    def extract_text_and_images(
+        self,
+    )-> tuple[List[dict[str,Any]],List[dict[str,Any]]]
 
+        """
+            Extract:
+            - selectable page text
+            - page dimensions
+            - full-page rendered images
+            - OCR text from rendered pages
+            - embedded images
+            - OCR text from embedded images
+            """
+    page_records:List[Dict[str,Any]] = []
+    image_records: List[Dict[str,Any]] = []
+
+    pdf = fitz.open(str(self,pdf_path))
+
+
+    
 
         
         
